@@ -26,7 +26,7 @@ WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 BGRAY = RGBColor(0xF2, 0xF2, 0xF2)
 
 FONT = '微软雅黑'
-TOTAL = 19
+TOTAL = 20
 OUT = '/Users/xulingexu/Desktop/大创/智伴成长_答辩PPT.pptx'
 
 prs = Presentation()
@@ -215,8 +215,9 @@ for (cd, items, c) in [(c1, stu, BLUE), (c2, sch, ORANGE)]:
     shape_text(cd, paras, anchor=MSO_ANCHOR.MIDDLE)
     cd.text_frame.margin_left = Inches(0.35)
     cd.text_frame.margin_right = Inches(0.25)
-ban = add_shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, 0.9, 6.3, 11.5, 0.75, fill=WHITE, line=ORANGE, line_w=1.5, radius=0.5)
-shape_text(ban, [([('双向痛点 → 一个方案：', 14, True, DARK), ('“智伴成长”数字学长', 14, True, ORANGE)], PP_ALIGN.CENTER, 0, 1.0)])
+ban = add_shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, 0.9, 6.05, 11.5, 1.0, fill=WHITE, line=ORANGE, line_w=1.5, radius=0.12)
+shape_text(ban, [([('双向痛点 → 一个方案：', 13.5, True, DARK), ('“智伴成长”数字学长', 13.5, True, ORANGE)], PP_ALIGN.CENTER, 1, 1.1),
+                 ([('调研留痕：2026.09—10 问卷 ≥300 份 + 学工访谈，原始问卷/访谈记录/现场台账全程留存（可核验）', 10.5, False, GRAY)], PP_ALIGN.CENTER, 0, 1.1)])
 
 # ================= S5 市场规模 =================
 s = new_slide()
@@ -542,6 +543,9 @@ for i, (role, duty, name) in enumerate(team):
     add_text(s, 1.6, y, 5.3, 0.65,
              [([(role, 12.5, True, DARK), ('　' + name, 12, False, GRAY)], PP_ALIGN.LEFT, 1, 1.1),
               ([(duty, 11, False, GRAY)], PP_ALIGN.LEFT, 0, 1.1)])
+add_text(s, 1.25, 4.85, 5.4, 1.1,
+         [([('贡献台账（2026 新增评审项）：', 11.5, True, ORANGE),
+            ('徐麟阁—RAG 链路与财务模型；董芮铭—知识图谱与客户端；章宇洲—调研执行与内容运营，均可逐项核查', 10.5, False, DARK)], PP_ALIGN.LEFT, 0, 1.2)])
 c2 = card(s, 7.3, 1.55, 5.15, 2.5, fill=WHITE, line=ORANGE, line_w=1.5)
 add_text(s, 7.6, 1.8, 4.6, 2.0,
          [([('指导教师：陈圣波', 16, True, ORANGE)], PP_ALIGN.LEFT, 6, 1.1),
@@ -554,9 +558,33 @@ add_text(s, 7.6, 4.35, 4.6, 0.8,
 add_text(s, 7.3, 5.5, 5.15, 0.6,
          [([('已具备：Word2Vec · TextCNN · 医学知识图谱实训经验', 12, True, DARK)], PP_ALIGN.LEFT, 0, 1.1)])
 
-# ================= S17 里程碑与规划 =================
+# ================= S17 个人成长 =================
 s = new_slide()
-header(s, '里程碑：三年三步走', 17)
+header(s, '个人成长：以赛促学 · 学创融合（30 分评审项）', 17)
+layers = [
+    ('知识层', '课本理论 → 项目实践迁移', 'Word2Vec → 检索语义匹配\nTextCNN → 情绪识别\n知识图谱实训 → Neo4j 校园图谱', BLUE, LIGHTBLUE),
+    ('能力层', '从被动执行到牵头攻坚', '完成实训作业 → 独立设计四层架构\n→ 牵头产品化与商业测算', ORANGE, LIGHTORANGE),
+    ('价值观层', '专业服务朋辈互助', '用 AI 沉淀学长经验、代际传承\n践行“让每一段大学时光\n都有智慧与温暖相伴”', MIDBLUE, LIGHTBLUE),
+]
+for i, (t, sub, body, c, fill) in enumerate(layers):
+    x = 0.9 + i * 3.95
+    card(s, x, 1.6, 3.6, 3.0, fill=fill, line=None)
+    add_text(s, x + 0.25, 1.85, 3.1, 0.5, [([(t, 16, True, c)], PP_ALIGN.CENTER, 0, 1.0)])
+    add_text(s, x + 0.25, 2.4, 3.1, 0.4, [([(sub, 11.5, True, DARK)], PP_ALIGN.CENTER, 0, 1.0)])
+    add_text(s, x + 0.25, 2.9, 3.1, 1.6, [([(ln, 11, False, GRAY)], PP_ALIGN.CENTER, 0, 1.2) for ln in body.split('\n')])
+ban = add_shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, 0.9, 4.85, 11.5, 1.2, fill=WHITE, line=ORANGE, line_w=1.5, radius=0.1)
+ban.text_frame.margin_left = Inches(0.3)
+ban.text_frame.margin_right = Inches(0.25)
+shape_text(ban, [([('困难—帮扶—解决：', 12.5, True, ORANGE),
+                   ('【技术案例：RAG 检索召回率不足 → 导师陈圣波指导 + 多轮对比实验 → 攻克，掌握提示工程与检索优化】', 11, False, DARK)], PP_ALIGN.LEFT, 2, 1.12),
+                 ([('【实践案例：调研问卷回收率低 → 依托创新创业学院渠道 + 辅导员协助 → 完成 ≥300 份有效样本】', 11, False, DARK)], PP_ALIGN.LEFT, 0, 1.12)], anchor=MSO_ANCHOR.MIDDLE)
+add_text(s, 0.9, 6.25, 11.5, 0.75,
+         [([('成果边界：核心技术（RAG 链路/知识图谱/客户端）由学生独立完成，导师仅技术把关；', 11, False, GRAY)], PP_ALIGN.CENTER, 1, 1.1),
+          ([('调研全程留痕（原始问卷/访谈记录/台账），符合 2026 真实性一票否决要求', 11, True, ORANGE)], PP_ALIGN.CENTER, 0, 1.1)])
+
+# ================= S18 里程碑与规划 =================
+s = new_slide()
+header(s, '里程碑：三年三步走', 18)
 line_y = 5.35
 add_shape(s, MSO_SHAPE.RECTANGLE, 1.4, line_y - 0.02, 10.6, 0.045, fill=MGRAY)
 phases = [
@@ -575,9 +603,9 @@ for i, (name, t, body, mile, c) in enumerate(phases):
 add_text(s, 0.9, 6.5, 11.5, 0.6,
          [([('衔接大创周期：2026.09 立项 → 2027.06 结题（校内全量部署 + 首份成效报告）→ 公司化运营', 12.5, False, DARK)], PP_ALIGN.CENTER, 0, 1.0)])
 
-# ================= S18 风险与应对 =================
+# ================= S19 风险与应对 =================
 s = new_slide()
-header(s, '风险与应对：Top 3', 18)
+header(s, '风险与应对：Top 3', 19)
 risks = [
     ('市场风险', '采购周期长、预算不确定', '学院级轻量入口 · 标杆案例背书 · 6 个月现金安全线', BLUE, LIGHTBLUE),
     ('技术风险', '大模型“幻觉”损害口碑', 'RAG 约束生成 + 来源引用 · 白名单答案库 · 知识审核机制', ORANGE, LIGHTORANGE),
@@ -590,9 +618,10 @@ for i, (t, r, m, c, fill) in enumerate(risks):
     add_text(s, x + 0.25, 2.8, 3.1, 0.8, [([(r, 12.5, False, DARK)], PP_ALIGN.CENTER, 0, 1.2)])
     add_shape(s, MSO_SHAPE.RECTANGLE, x + 1.3, 3.7, 1.0, 0.03, fill=c)
     add_text(s, x + 0.25, 3.9, 3.1, 1.2, [([('应对：', 12.5, True, c), (m, 12, False, DARK)], PP_ALIGN.CENTER, 0, 1.25)])
-add_text(s, 0.9, 5.75, 11.5, 0.8,
+add_text(s, 0.9, 5.6, 11.5, 1.15,
          [([('其余风险（政策/经营）应对详见商业计划书表 10-1；', 12, False, GRAY),
-            ('整体原则：弹性成本与签约进度联动，保守扩张', 12, True, DARK)], PP_ALIGN.CENTER, 0, 1.1)])
+            ('整体原则：弹性成本与签约进度联动，保守扩张', 12, True, DARK)], PP_ALIGN.CENTER, 2, 1.1),
+          ([('2026 规则红线：材料真实性一票否决——本项目数据保守测算并如实标注假设，知识产权由团队持有', 11, True, ORANGE)], PP_ALIGN.CENTER, 0, 1.1)])
 
 # ================= S19 结语 =================
 s = new_slide()
